@@ -1,0 +1,5 @@
+body { background: #f8f9fa; }
+header a { text-decoration: underline; }
+main { max-width: 900px; }
+h1 { letter-spacing: 0.5px; }
+footer small { font-size: 0.85rem; }
