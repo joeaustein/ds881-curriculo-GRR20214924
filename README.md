@@ -113,7 +113,7 @@ O workflow está em `.github/workflows/main.yml`. Ao fazer merge na branch `main
 
 **Link público (preencher após o primeiro deploy)**
 
-Insira aqui a URL pública do currículo (ex.: https://USERNAME.github.io/REPO_NAME). Após o primeiro merge para `main` e deploy bem‑sucedido, copie a URL e cole neste campo.
+https://joeaustein.github.io/ds881-curriculo-GRR20214924/
 
 **Como executar localmente — instruções detalhadas (Docker)**
 
