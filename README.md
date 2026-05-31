@@ -68,3 +68,100 @@ A entrega deve ser realizada através do formulário disponibilizado pelo profes
 ---
 
 > **Atenção:** Não esqueça de anexar no final deste README ou na documentação do projeto um print comprovando que a regra de **Branch Protection** da `main` foi configurada no GitHub.
+
+## 6. Main Protection Config
+
+![alt text](image.png)
+
+### Rules:
+Restrict updates;
+
+Restrict deletions;
+
+Require a pull request before merging;
+
+Block force pushes.
+
+---
+
+**Como executar localmente (Docker)**
+
+1. Construa a imagem e inicie o serviço com Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+2. Abra `http://localhost:8080` no navegador. O container usa `live-server` e observação de arquivos para recarregamento ao salvar.
+
+**Executar sem Docker (opcional)**
+
+Pré-requisito: Node.js instalado localmente.
+
+```bash
+npm install
+npm run start
+```
+
+**Deploy no GitHub Pages (CI/CD)**
+
+O workflow está em `.github/workflows/main.yml`. Ao fazer merge na branch `main` o pipeline:
+- Roda o linter (`npm run lint`)
+- Executa o build (`npm run build`) que gera a pasta `dist`
+- Publica `dist` no GitHub Pages automaticamente
+ - Publica `dist` no GitHub Pages automaticamente
+
+**Link público (preencher após o primeiro deploy)**
+
+Insira aqui a URL pública do currículo (ex.: https://USERNAME.github.io/REPO_NAME). Após o primeiro merge para `main` e deploy bem‑sucedido, copie a URL e cole neste campo.
+
+**Como executar localmente — instruções detalhadas (Docker)**
+
+Pré‑requisitos: instale Docker Desktop (Windows) ou Docker Engine + Docker Compose.
+
+Comandos úteis:
+
+```bash
+# Inicia em primeiro plano (útil para desenvolvimento e ver logs)
+docker-compose up --build
+
+# Inicia em segundo plano (detached)
+docker-compose up --build -d
+
+# Ver logs do serviço
+docker-compose logs -f
+
+# Parar e remover containers
+docker-compose down
+```
+
+Observações:
+- O Compose monta o diretório do repositório em `/app` dentro do container (bind mount), portanto alterações locais são refletidas imediatamente e o `live-server` faz hot reload.
+- O servidor de desenvolvimento responde em `localhost:8080` do host.
+
+**Branch Protection — descrição e evidência**
+
+Requisitos: a branch `main` deve ter proteção que **requira PRs** e **exija checks do CI antes do merge**. Passos resumidos:
+
+1. Acesse _Settings_ → _Branches_ → _Branch protection rules_ → _Add rule_.
+2. Em _Branch name pattern_ coloque `main`.
+3. Ative _Require a pull request before merging_.
+4. Ative _Require status checks to pass before merging_ e selecione o check do workflow (ex.: `build`).
+5. (Opcional) Ative _Include administrators_ para aplicar a regra a administradores também.
+
+Evidência (adicionar ao repositório):
+- Faça uma captura de tela da tela de regras de proteção mostrando que `main` tem as opções ativadas.
+- Coloque a imagem em `docs/branch-protection.png` e adicione um link nesta README apontando para esse arquivo.
+
+**Checklist resumido — onde verificar**
+
+- `index.html`: página estática com o currículo.
+- `css/style.css`: estilos básicos.
+- `Dockerfile`: imagem base `node:18-alpine` com `live-server` — expõe `8080`.
+- `docker-compose.yml`: bind mount do repositório para `/app` e `8080:8080`.
+- `package.json` / `.htmlhintrc`: linter (`htmlhint`) e scripts (`npm run lint`, `npm run build`, `npm run start`).
+- `.github/workflows/main.yml`: workflow CI com lint, build e deploy Pages.
+
+> Observação: para que o CI apareça como opção em _Require status checks_, execute o workflow pelo menos uma vez (p.ex. abrindo um PR com mudanças) — só então será possível selecioná‑lo na lista de checks.
+
+
