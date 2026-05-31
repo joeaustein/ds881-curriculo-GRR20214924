@@ -1,0 +1,14 @@
+{
+  "name": "curriculo-joelinton",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "live-server --port=8080 --host=0.0.0.0 --no-browser --watch=.",
+    "lint": "htmlhint index.html",
+    "build": "rm -rf dist || true && mkdir -p dist && cp index.html dist/ && cp -r css dist/ || true"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.4.3",
+    "live-server": "^1.2.2"
+  }
+}
